@@ -1,0 +1,49 @@
+{% extends "admin/admin_layout.html" %}
+{% block content %}
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">All User Accounts</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="dashboard.html">Dashboard</a></li>
+            <li class="breadcrumb-item active">User Accounts</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+               Registered Accounts
+            </div>
+            <div class="card-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Fullname</th>
+                      <th scope="col">Level</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for user in users %}
+                    <tr>
+                      <th scope="row">{{ loop.index }}</th>
+                      <td>{{ user.user_fname }} {{ user.user_lname }}</td>
+                      <td> Senior Developer</td>
+                      <td>joe@yahoo.com</td>
+                      <td><a href="" class="btn btn-sm btn-primary">Edit</a> <a href="" class="btn btn-sm btn-danger">Delete</a> <a href="" class="btn btn-sm btn-success">Published</a></td>
+                    </tr>
+                  {% endfor %}
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Temitope Thomson</td>
+                        <td> Junior Developer</td>
+                        <td>Tems@yahoo.com</td>
+                        <td><a href="" class="btn btn-sm btn-primary">Edit</a> <a href="" class="btn btn-sm btn-danger">Delete</a> <a href="" class="btn btn-sm btn-success">Published</a></td>
+                      </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}

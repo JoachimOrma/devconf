@@ -1,0 +1,35 @@
+<!--menu for logged in user-->
+    <header class="p-3 border-bottom">
+        <div class="container">
+          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+            <ul class="member nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-start mb-md-0">
+              <li><a href="{{url_for('dashboard')}}" class="nav-link px-2 " style="color:#FF5714">Dashboard</a></li>
+              <li><a href="{{url_for('conversations') }}" class="nav-link px-2 link-dark">Conversations</a></li>
+              <li><a href="{{url_for('breakout')}}" class="nav-link px-2 link-dark">My Sessions</a></li>
+              <li><a href="{{url_for('donation')}}" class="nav-link px-2 link-dark">Transaction History</a></li>
+
+            </ul>
+
+
+            <div class="dropdown text-end">
+              <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                {% if userid.user_pix %}
+                  <img src="/static/uploads/{{ userid.user_pix }}" alt="mdo" width="32" height="32" class="rounded-circle">
+                {% else %}
+                  <img src="/static/images/mdo.jpg" alt="mdo" width="32" height="32" class="rounded-circle">
+                {% endif %}
+              </a>
+              <ul class="dropdown-menu text-small">
+                <li><a class="dropdown-item" href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a class="dropdown-item" href="{{url_for('change_dp')}}">Upload DP</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{{ url_for('logout') }}">Sign out</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </header>
+<!--end of menu for logged in user-->

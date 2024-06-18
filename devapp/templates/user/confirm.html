@@ -1,0 +1,23 @@
+{% extends "user/home_layout.html" %}
+
+{% block banner %}
+  <div class="content mt-2">
+    <h3>Donation COnfirmation Page!</h3>
+    <p class="alert alert-info">You chosen to donate as follows.... Please click on the Confirm Payment 
+        button when you are done. Your reference number is {{donation_deets.donate_ref}}</p>
+    <div class="mb-3"><label>Fullname:</label> {{donation_deets.donate_donor}}</div>
+    <div class="mb-3"><label>Amount:</label> {{donation_deets.donate_amt}}</div>
+    <div class="mb-3"><label>Email:</label> {{donation_deets.donate_email}}</div>
+    <form action="{{url_for('paystack_initialize')}}" method="post">
+        <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+        <div class="hstack">
+            <button type="button" class="btn btn-dark noround me-4" onclick="document.location.href='/donation/'">Cancel Payment</button>
+            <button type="submit" class="btn btn-success noround">Confirm Payment</button>
+        </div>
+    </form>
+</div>
+
+{% endblock banner %}
+
+{% block breakout %} {% endblock breakout %}
+{% block partner %} {% endblock partner %}

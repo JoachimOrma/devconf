@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Moat Academy Cohort 26"> 
+    <title>Moat DevConf 2024</title>
+
+<link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+<!---
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+-->
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='heroes.css') }}" rel="stylesheet">
+  </head>
+  <body> 
+
+    <nav class="navbar navbar-expand-md fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="/static/images/bw.png" height="30" class="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link text-white active" aria-current="page" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#partner">Accomodation</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white" href="#breakout">Breakout Sessions</a>
+            </li>
+          
+          </ul>
+          <form class="d-flex" role="search">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+             
+              <li class="nav-item">
+                <a class="btn btn-dark noround" href="{{url_for('donation')}}">Donate</a>
+              </li>
+              
+            </ul>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <br>   
+
+<main>
+<div class="container col-md-10 py-5">
+  
+  <!--menu for logged in user-->
+    {% if session.get('useronline') %}
+        {% include "user/menu.html" %}
+    {% endif %}
+  <!--menu for logged in user-->
+
+    <!--banner-->
+        {% block banner %}
+
+        {% endblock banner %}
+    <!--end banner-->
+
+</div>
+
+<!--The home page can populate the following for other contents like partner hotel-->
+
+    <!--breakout session-->
+    {% block breakout %}
+    <div class="layout" id="breakout">
+
+      <div class="container-fluid px-4 pt-5" id="custom-cards" style="background-color: white;">
+        <div style="width:86%; margin:auto">
+          <h2 class="pb-2 border-bottom heading-text">Popular Breakout Sessions</h2>
+          <div class="row row-cols-1 row-cols-lg-4 align-items-stretch g-4 py-5">
+            {% for topic in topics %}
+              {% if topic %}
+              <div class="col">
+                <img src="/static/topics/{{topic.topic_image}}" class="img-fluid bk" alt="" width="200">
+                <div class="deets"><h6>{{topic.topic_title}}  </h6>
+                  <p><i>{{topic.leveldeets.level_name}}</i></p>
+                </div>
+              </div>
+              {% endif %}
+              {% else %}
+              <div class="alert alert-info">No active topics available</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock breakout %}
+    <!--end breakout session-->
+
+    <!--conversation call to action-->
+    {% block conversation %}
+        <div class="container mt-5" id="conversation">
+              <h3 class="pb-2 border-bottom heading-text my-4">Join the Conversation</h3>
+              <div class="row justify-content-around mx-0">
+                <div class="col-md-6 mb-4">
+                  <img src="/static/images/senior_dev.png" alt="image1" class="img-fluid">
+
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-12">
+                      <img src="/static/images/junio.png" alt="image2" class="img-fluid">
+
+                    </div>
+                    <div class="col-12 my-4">
+                      <img src="/static/images/inter.png" alt="image3" class="img-fluid">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="row justify-content-center my-4 ">
+          <div class="col-12 text-center">
+            <a href="{{url_for('conversations')}}" class="noround btn btn-outline-dark">MAKE A POST</a>
+          </div>
+    </div>
+    {% endblock conversation %}
+    <!--end conversation call to action-->
+
+
+    <!--partner hotel-->
+    {% block partner %}
+        <div class="layout" style="margin-top:60px" id="partner">
+
+      <div class="container px-4" id="custom-cardx">
+        <h2 class="pb-2 border-bottom heading-text">Partner Accomodations</h2>
+
+        <div class="row row-cols-1 row-cols-lg-4 align-items-stretch g-4 py-5">
+         <div class="col">
+           <img src="/static/images/h2.jpg" class="img-fluid jiji" alt="">
+           <div class="deets">
+            <h6>Fela Shrine</h6>
+           </div>
+         </div>
+            {% if hotels and hotels['status'] == 1 %}
+                {% for hotel in hotels['records'] %}
+                     <div class="col">
+                       <img src="{{ hotel['propfile'] }}" class="img-fluid jiji" alt="">
+                       <div class="deets">
+                        <h6>{{ hotel['propname'] }}</h6>
+                       </div>
+                     </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+      </div>
+     </div>
+    {% endblock partner %}
+    <!--end partner hotel-->
+
+ <!--- End of Extra independent sessions that home page may wish to populate-->
+
+ <!-- From here till end as footer.php-->
+<!-- FOOTER -->
+<footer class="container" style="height:100px; line-height:100px;">
+  <p class="float-end"><a href="#" style="color:#FF5714">Back to top</a></p>
+  <p>&copy; 2023-2024 Moat Academy Cohort 27 Class Project</p>
+</footer>
+
+</main>
+
+<script src="/static/bootstrap/js/bootstrap.bundle.min.js"></script>
+{% block customjs %}
+
+{% endblock customjs %}
+  </body>
+</html>

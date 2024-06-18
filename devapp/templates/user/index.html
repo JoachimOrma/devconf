@@ -1,0 +1,20 @@
+{% extends "user/home_layout.html" %}
+
+{% block banner %}
+    <div class="row flex-lg-row-reverse align-items-center g-5" >
+  <div class="col-12 col-sm-5 col-lg-5">
+    <video width="100%" autoplay muted loop>
+      <source src="/static/videos/hero.mp4" type="video/mp4">
+    </video>
+    <!-- <img src="static/images/sw.png" class="d-block mx-lg-auto img-fluid" alt="Developer Sample"> -->
+  </div>
+  <div class="col-lg-7 col-sm-7">
+    <h1 class="display-5 fw-bold lh-1 mb-3">MOAT DEVCONF 2024</h1>
+    <p class="lead">Introducing the largest Developer's Conference across sub-Sahara Africa! <br>A full-stack, tech-obsessed conference full of fun, code-loving humans who share and learn together. </p>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+      <a href="{{ url_for('register') }}" class="btn custom-btn px-4 me-md-2">Register Me</a>
+      <a href="{{ url_for('user_login') }}" class="btn btn-outline-dark noround px-4">Login</a>
+    </div>
+  </div>
+</div>
+{% endblock banner %}

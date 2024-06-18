@@ -1,0 +1,60 @@
+{% extends "admin/admin_layout.html" %}
+
+{% block content %}
+<main>
+  <div class="container-fluid px-4">
+    <h1 class="mt-4">Add Topics</h1>
+    <ol class="breadcrumb mb-4">
+      <li class="breadcrumb-item">Dashboard</li>
+      <li class="breadcrumb-item active"><a href="{{ url_for('breakout') }}">All Topic</a></li>
+      <li class="breadcrumb-item active">Add Topic</li>
+    </ol>
+    <div class="row">
+          <div class="col">
+            {% set message = get_flashed_messages(with_categories=True) %}
+            {% for cat, msg in message %}
+              {% if cat == 'error' %}
+                <div class="alert alert-danger">{{ msg }}</div>
+              {% else %}
+                <div class="alert alert-success">{{ msg }}</div>
+              {% endif%}
+            {% endfor %}
+            <form action="/admin/addtopic/" method="post" enctype="multipart/form-data">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title">
+              </div>
+              <div class="mb-3">
+                <label for="level" class="form-label">Level</label>
+               <select name="level" id="level" class="form-control">
+                <option value="">Select One</option>
+                   {% for level in levels %}
+                    <option value="{{ level.level_id }}">{{ level.level_name }}</option>
+                   {% endfor %}
+               </select>
+              </div>
+              <fieldset class="mb-3">
+                <legend>Status</legend>
+                <div class="form-check">
+                  <input type="radio" name="status" class="form-check-input" id="exampleRadio1" value="1">
+                  <label class="form-check-label" for="exampleRadio1">Publish</label>
+                </div>
+                <div class="mb-3 form-check">
+                  <input type="radio" name="status" class="form-check-input" id="exampleRadio2" value="0">
+                  <label class="form-check-label" for="exampleRadio2">Do Not Publish</label>
+                </div>
+              </fieldset>
+              <div class="mb-3">
+                <label class="form-label" for="customFile">Upload Cover</label>
+                <input type="file" class="form-control" id="customFile" name="topicCover">
+              </div>
+              <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Add Topic!</button>
+              </div>
+            </form>
+          </div>
+    </div>
+  </div>
+</main>
+{%  endblock content %}

@@ -1,0 +1,30 @@
+{% extends "user/home_layout.html" %}
+
+{% block banner %}
+  <div class="content" style="background-color: white;padding:3em">
+    <h3>Change Your Profile Picture</h3>
+    {% if dpform.dp.errors %}
+      {% for error in dpform.dp.errors %}
+        <div class="alert alert-danger">{{ error }}</div>
+      {% endfor %}
+    {% endif %}
+    {% with msg = get_flashed_messages() %}
+      {% if msg %}
+        {% for m in msg %}
+          <div class="alert alert-success">{{ m }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <p>ONLY files with .jpg and .png extensions are allowed.</p>
+    <form enctype="multipart/form-data" method="post">
+    {{ dpform.csrf_token }}
+    <div class="mb-3">
+      {{ dpform.dp.label }}
+      {{ dpform.dp }}
+    </div>
+    <div class="mb-3">
+      {{ dpform.submit(class='btn btn-dark noround') }}
+    </div>
+    </form>
+  </div>
+{% endblock banner %}

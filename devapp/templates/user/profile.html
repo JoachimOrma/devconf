@@ -1,0 +1,54 @@
+{% extends "user/home_layout.html" %}
+
+{% block banner %}
+    <div class="content" style="background-color: white;padding:3em">
+        <h3>Edit Your Profile</h3>
+        <form action="" enctype="multipart/form-data" method="post">
+            <input type="hidden" value="{{ csrf_token() }}" name="csrf_token">
+            {% set m = get_flashed_messages(with_categories=True) %}
+            {% for cat, msg in m %}
+                {% if cat=='success' %}
+                    <div class="alert alert-success">{{ msg }} </div>
+                {% else %}
+                    <div class="alert alert-danger">{{ msg }} </div>
+                {% endif %}
+            {% endfor %}
+           <div class="form-group row">
+            <div class="col-md-6 mb-3">
+                <label for="fname">FirstName</label>
+                <input class="form-control border-dark noround" id="fname" name="fname" required type="text" value="{{ userid.user_fname }}" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="lname">LastName</label>
+                <input class="form-control border-dark noround" id="lname" name="lname" required type="text" value="{{ userid.user_lname }}" />
+            </div>
+           </div>
+           <div class="form-group row">
+            <div class="col-md-6 mb-3">
+                <label for="phone">Phone</label>
+                <input class="form-control border-dark noround" id="phone" name="phone" required type="text" value="{{ userid.user_phone }}" />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="level">Category</label>
+                <select name="level" id="level" class="form-control border-dark noround">
+                    <option value="">Select One</option>
+                    {% for level in levels %}
+                        {% if level.level_id == userid.user_levelid %}
+                            <option value="{{ level.level_id }}" selected>{{ level.level_name }}</option>
+                        {% else %}
+                            <option value="{{ level.level_id }}">{{ level.level_name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+           </div>
+           <hr>
+           <div class="mb-3">
+            <input class="btn custom-btn noround" id="btnsubmit" name="btnsubmit" type="submit" value="Update Profile!">
+           </div>
+        </form>
+    </div>
+{% endblock banner %}
+
+{% block breakout %} {% endblock breakout %}
+{% block partner %} {% endblock partner %}

@@ -1,0 +1,101 @@
+{% extends "user/home_layout.html" %}
+{% block banner %}
+   <div class="content">
+
+    <div class="row g-5">
+    <div class="col-md-8">
+      <h3 class="pb-4 mb-4 fst-italic border-bottom">
+       Ongoing Conversations
+      </h3>
+
+      <article class="blog-post">
+        <h5 class="blog-post-title">How many people are looking forward to seeing Taylor?</h5>
+        <p class="blog-post-meta">January 1, 2021 by <a href="#">Mark</a></p>
+
+        <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, lists, tables, images, code, and more are all supported as expected.</p>
+        <hr>
+         
+      </article>
+      <article class="blog-post">
+        <h5 class="blog-post-title">I'm excited for the conference!</h5>
+        <p class="blog-post-meta">February 1, 2021 by <a href="#">Olusegun Obasanjo</a></p>
+
+        <p>This is possibly the largest gathering of humans on earth.</p>
+        <hr>
+         
+      </article>
+ 
+      <article>
+        <form action="{{url_for('sendmail')}}" method="post" id="convForm">
+          <input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+          <p class="box"></p>
+          <div class="mb-3 row">
+            <label class="col-md-3">Email</label>
+            <div class="col-md-9">
+              <input type="email" name="email" class="form-control border-dark noround">
+            </div>
+          </div>
+           <div class="mb-3 row">
+            <label class="col-md-3">Message</label>
+            <div class="col-md-9">
+               <textarea name="message" class="form-control border-dark noround"></textarea>
+            </div>
+          </div>
+           <div class="mb-3 row">
+             <button class="btn btn-dark noround btn-lg" id="btnConv">Submit Post</button>
+           </div>
+        </form>  
+        </article>
+    </div>
+
+      <div class="col-md-4">
+        <div class="position-sticky" style="top: 2rem;">   
+          <div class="p-4">
+            <h4 class="fst-italic">Archives</h4>
+            <ol class="list-unstyled mb-0">
+              <li><a href="#">Performing Artistes</a></li>
+              <li><a href="#">Partner Hotels</a></li>
+              <li><a href="#">Event Managers</a></li>
+              <li><a href="#">Bids for Contracts</a></li>           
+            </ol>
+          </div>       
+        </div>
+      </div>
+    </div>
+   </div>
+  </div>
+ {% endblock banner %}
+
+ {% block breakout %} {% endblock breakout %}
+ {% block partner %} {% endblock partner %}
+
+ {% block customjs %}
+  <script src="/static/js/jquery.min.js"></script>
+  <script>
+    $(document).ready(function(){
+      $("#convForm").submit(function(e){
+        e.preventDefault();
+        var data2send = $(this).serialize()
+        $.ajax ({
+            url: '/sendmail/',
+            type: 'post',
+            data: data2send,
+            beforeSend: function(){
+              $("#btnConv").html("Sending...");
+            },
+            error: function(errmsg){
+              console.log(errmsg)
+            },
+            success: function(resp){
+               alert(resp)
+              $('.box').html(resp);
+              $('.box').addClass('alert alert-success');
+            },
+            complete: function(){
+              $("#btnConv").html("Submit Post");
+            }
+        });
+      });
+    });
+  </script>
+{% endblock customjs %}
